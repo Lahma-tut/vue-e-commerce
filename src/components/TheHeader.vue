@@ -17,7 +17,7 @@
           </a>
         </div>
         <div class="search">
-          <Search />
+          <InputText type="text" v-model="value" fluid placeholder="search"/>
         </div>
         <div class="menu">
           <Drawer v-model:visible="visibleMenu" header="MENU" position="right">
@@ -47,14 +47,15 @@
 <script setup lang='ts'>
 import { ref } from 'vue'
 import { RouterLink } from 'vue-router'
-import Search from '@/components/Search.vue'
 
+import InputText from 'primevue/inputtext'
 import Image from 'primevue/image'
 import Drawer from 'primevue/drawer'
 import Button from 'primevue/button'
 
 const visibleMenu = ref(false)
 const visibleСart = ref(false)
+const value = ref('')
 </script>
 
 <style scoped>
@@ -68,6 +69,7 @@ const visibleСart = ref(false)
   font-weight: 500;
   color: #000;
 }
+
 
 .pi-align-left {
   display: block;
