@@ -6,7 +6,6 @@
             <InputText v-model.number="value" class="w-full mb-4" />
             <Slider v-model="value" class="w-full" />
         </div>
-
         <!-- <div v-if="isFetching">Loading...</div>
         <div v-else-if="error">Error: {{ error }}</div>
         <div 
@@ -17,7 +16,6 @@
           <Checkbox v-model="selectedCategories" :inputId="category.key" name="category" :value="category.name" />
         <label :for="category.key">{{ category.name }}</label>
       </div> -->
-      
     </div>
   </div>
 </template>
@@ -51,6 +49,7 @@ const value = ref(50)
 //     return null
 //   }
 // })
+
 </script>
 
 <style scoped>

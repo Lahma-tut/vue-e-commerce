@@ -15,7 +15,6 @@ const myTheme = definePreset(Aura, {
   semantic: {
     primary: {
       500: '{Slate.900}',
-      
       600: '{Slate.600}',
       700: '{Slate.700}',
       800: '{Slate.800}',
