@@ -1,4 +1,4 @@
-# pr-agro-1
+# vue-e-commerce
 
 This template should help get you started developing with Vue 3 in Vite.
 
