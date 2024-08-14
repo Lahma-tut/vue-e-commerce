@@ -1,23 +1,18 @@
 <template>
   <div class="search-wrapper">
     <FloatLabel>
-    <AutoComplete 
-      v-model="selectedCountry" 
-      optionLabel="name" 
-      :suggestions="filteredCountries" 
-      @complete="search" 
-      fluid 
-      >
-      <template #option="slotProps">
-        <div class="flex items-center">
-          <img :alt="slotProps.option.name" src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png"
-            :class="`flag flag-${slotProps.option.code.toLowerCase()} mr-2`" style="width: 18px" />
-          <div>{{ slotProps.option.name }}</div>
-        </div>
-      </template>
-    </AutoComplete>
-    <label for="ac">search</label>
-  </FloatLabel>
+      <AutoComplete v-model="selectedCountry" optionLabel="name" :suggestions="filteredCountries" @complete="search"
+        fluid>
+        <template #option="slotProps">
+          <div class="flex items-center">
+            <img :alt="slotProps.option.name" src="https://primefaces.org/cdn/primevue/images/flag/flag_placeholder.png"
+              :class="`flag flag-${slotProps.option.code.toLowerCase()} mr-2`" style="width: 18px" />
+            <div>{{ slotProps.option.name }}</div>
+          </div>
+        </template>
+      </AutoComplete>
+      <label for="ac">search</label>
+    </FloatLabel>
   </div>
 </template>
 
@@ -48,15 +43,17 @@ import FloatLabel from 'primevue/floatlabel';
 //         }
 //     }, 250);
 // }
-// </script>
+//
+
+</script>
 
 <style scoped>
 /* .input[type="text"] {
   font-weight: 400;
   font-size: 14px;
-} */
+} 
 
-/* .search-wrapper {
+.search-wrapper {
   width: 100%;
   width: 100%;
   height: 40px;
@@ -124,4 +121,6 @@ import FloatLabel from 'primevue/floatlabel';
   background-color: #ddd;
   cursor: pointer;
 } */
+ 
 </style>
+

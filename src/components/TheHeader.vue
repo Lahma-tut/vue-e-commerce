@@ -11,7 +11,10 @@
     <nav>
       <div class="nav-wrapper">
         <div class="logo">
-          <a href="/">Магазин</a>
+          <a href="/" class="logo_box">
+            <img src="/src/assets/icon/dragon-svgrepo-com-black.svg" alt="dragon-svg" width="50">
+            <p>магазин</p>
+          </a>
         </div>
         <div class="search">
           <Search />
@@ -55,15 +58,15 @@ const visibleСart = ref(false)
 </script>
 
 <style scoped>
-.logo img{
-  display: inline;
+.logo_box {
+  display: flex;
+  gap: 10px;
 }
 
 .logo a {
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: 500;
   color: #000;
-  text-transform: uppercase;
 }
 
 .pi-align-left {
