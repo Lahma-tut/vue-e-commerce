@@ -17,11 +17,12 @@
 </template>
 
 <script setup lang='ts'>
-import AutoComplete from 'primevue/autocomplete';
+import { ref, onMounted } from 'vue'
+import AutoComplete from 'primevue/autocomplete'
 import { useFetch } from '@vueuse/core'
-import { ref, onMounted } from "vue";
-import { CountryService } from "@/service/CountryService";
-import FloatLabel from 'primevue/floatlabel';
+import FloatLabel from 'primevue/floatlabel'
+
+// import { CountryService } from "@/service/CountryService";
 
 // onMounted(() => {
 //     CountryService.getCountries().then((data) => (countries.value = data));
@@ -121,6 +122,6 @@ import FloatLabel from 'primevue/floatlabel';
   background-color: #ddd;
   cursor: pointer;
 } */
- 
+
 </style>
 
