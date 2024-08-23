@@ -1,3 +1,19 @@
+<script setup lang='ts'>
+import { ref, computed } from 'vue'
+import { useFetch } from '@vueuse/core'
+import Message from 'primevue/message'
+
+const { isFetching, error, data } = useFetch('https://fakestoreapi.com/products/categories')
+const categories = computed(() => {
+  try {
+    return JSON.parse(data.value as string)
+  }
+  catch (error) {
+    return null
+  }
+})
+</script>
+
 <template>
   <div class="home">
     <div class="galleria">
@@ -22,23 +38,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang='ts'>
-import { ref, computed } from 'vue'
-import { useFetch } from '@vueuse/core'
-import Message from 'primevue/message'
-
-const { isFetching, error, data } = useFetch('https://fakestoreapi.com/products/categories')
-const categories = computed(() => {
-  try {
-    return JSON.parse(data.value as string)
-  }
-  catch (error) {
-    return null
-  }
-})
-
-</script>
 
 <style scoped>
 .home {

@@ -1,6 +1,30 @@
+<script setup lang='ts'>
+import { ref, computed } from 'vue'
+import { useFetch } from '@vueuse/core'
+import { useRoute } from 'vue-router'
+
+
+import TheFilter from '@/components/Filter.vue'
+import Message from 'primevue/message'
+import CategoryProductItem from '@/components/CategoryProductItem.vue'
+
+const route = useRoute()
+
+const { isFetching, error, data } = useFetch(`https://fakestoreapi.com/products/category/${route.params.id}`)
+const productsCategory = computed(() => {
+  try {
+    return JSON.parse(data.value as string)
+  }
+  catch (error) {
+    return null
+  }
+})
+</script>
+
 <template>
   <Message v-if="error" severity="warn">Error: {{ error }}</Message>
   <Message v-else-if="isFetching" severity="success">Loading...</Message>
+  
   <div v-else class="category">
     <div class="breadcrumbs">
       <h1>{{ route.params.id }}</h1>
@@ -23,40 +47,7 @@
       </div>
     </div>
   </div>
-
 </template>
-
-<script setup lang='ts'>
-import { ref, computed } from 'vue'
-import { useFetch } from '@vueuse/core'
-import { useRoute } from 'vue-router'
-
-
-import TheFilter from '@/components/TheFilter.vue'
-import Message from 'primevue/message'
-import CategoryProductItem from '@/components/CategoryProductItem.vue'
-
-const route = useRoute()
-
-const { isFetching, error, data } = useFetch(`https://fakestoreapi.com/products/category/${route.params.id}`)
-const productsCategory = computed(() => {
-  try {
-    return JSON.parse(data.value as string)
-  }
-  catch (error) {
-    return null
-  }
-})
-
-const categories = ref([
-  { name: "Accounting", key: "A" },
-  { name: "Marketing", key: "M" },
-  { name: "Production", key: "P" },
-  { name: "Research", key: "R" }
-]);
-const selectedCategories = ref([])
-
-</script>
 
 <style scoped>
 .breadcrumbs {

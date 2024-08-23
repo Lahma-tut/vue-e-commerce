@@ -7,66 +7,20 @@
 }
 
 /* header */
-.topbar {
-  background: #000;
-}
 
-.topbar-wrapper {
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
 
-.topbar p {
-  font-size: var(--font-info);
-  color: var(--grey-color);
-  font-weight: 400;
-}
-
-.topbar i {
-  padding: 0 5px 0 0;
-}
-
-.nav-wrapper {
-  height: 130px;
-  display: grid;
-  grid-template-columns: 200px auto 80px 60px 200px;
-  gap: 15px;
-  padding: 0 20px;
-  align-items: center;
-  max-width: var(--max-width);
-  margin: var(--margin-auto);
-}
-
-.logo img {
-
-}
-
-nav a {
-  text-decoration: none;
-}
-
-.menu,
-.cart, 
-.contact {
-  justify-self: center;
-}
-
-.email {
-  font-size: 17px;
-  font-weight: 500;
-  color: var(--orange-color);
-}
-
-.tel {
-  font-size: 18px;
-  font-weight: 600;
-  color: var(--green-color);
-}
 
 
 /* main */
+
+p::selection {
+  background-color: #B5E916;
+}
+
+h1::selection {
+  background-color: #B5E916;
+}
+
 main {
   flex: 1 1 auto;
   width: 100%;

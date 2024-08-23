@@ -2,7 +2,7 @@
 import { ref, computed } from 'vue'
 import Image from 'primevue/image'
 import { useFetch } from '@vueuse/core'
-import TheFilter from '@/components/TheFilter.vue'
+import TheFilter from '@/components/Filter.vue'
 
 const filterData = ref([
   { name: "Accounting", key: "A" },

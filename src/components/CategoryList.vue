@@ -1,5 +1,15 @@
+<script setup lang='ts'>
+import Image from 'primevue/image'
+
+defineProps({
+  heading: String,
+  image: String,
+})
+</script>
+
 <template>
   <div class="card">
+    
     <div class="card-wrapper">
       <div class="card-image">
         <Image 
@@ -7,31 +17,25 @@
           :alt="heading" 
           />
       </div>
+      
       <div class="card-body">
         <h3>{{ heading }}</h3>
         <a href="#">Смотреть все <i class="pi pi-arrow-circle-right"></i></a>
       </div>
     </div>
+    
     <ul class="card-list">
       <li><a href="#">Акарициды</a></li>
       <li><a href="#">Гербициды</a></li>
       <li><a href="#">Инсектициды</a></li>
       <li><a href="#">Фунгициды</a></li>
     </ul>
+
   </div>
 </template>
 
-<script setup lang='ts'>
-import Image from 'primevue/image';
-
-const props = defineProps({
-  heading: String,
-  image: String,
-})
-
-</script>
-
 <style scoped>
+
 .card-wrapper {
   position: relative;
 }
@@ -86,4 +90,5 @@ i {
 .card-list a:hover {
   color: var(--orange-color);
 }
+
 </style>

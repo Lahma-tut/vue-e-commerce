@@ -1,25 +1,7 @@
-<template>
-  <router-link :to="{ name: 'product', params: { id: props.id }}">
-    <article>
-      <div class="image">
-        <Image :src="props.image" :alt="props.title" width="80"/>
-      </div>
-      <div class="content">
-        <h3>{{ title }}</h3>
-        <p>{{ props.description }}</p>
-      </div>
-      <div class="price">
-        <p>{{ props.price }}</p>
-        <p>руб</p>
-      </div>
-    </article>
-  </router-link>
-</template>
-
 <script setup lang='ts'>
 import Image from 'primevue/image'
 
-const props = defineProps({
+defineProps({
   id: Number,
   category: String,
   image: String,
@@ -28,6 +10,28 @@ const props = defineProps({
   price: Number,
 })
 </script>
+
+<template>
+  <router-link :to="{ name: 'product', params: { id: id }}">
+    <article>
+      
+      <div class="image">
+        <Image :src="image" :alt="title" width="80"/>
+      </div>
+      
+      <div class="content">
+        <h3>{{ title }}</h3>
+        <p>{{ description }}</p>
+      </div>
+      
+      <div class="price">
+        <p>{{ price }}</p>
+        <p>руб</p>
+      </div>
+    
+    </article>
+  </router-link>
+</template>
 
 <style scoped>
 article {

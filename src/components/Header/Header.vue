@@ -1,0 +1,154 @@
+<script setup lang='ts'>
+import { ref } from 'vue'
+import { RouterLink } from 'vue-router'
+
+import Drawer from 'primevue/drawer'
+import Button from 'primevue/button'
+import Image from 'primevue/image'
+import Search from './Search.vue'
+import OldSearch from './OldSearch.vue'
+
+const visibleMenu = ref(false)
+const visibleСart = ref(false)
+</script>
+
+<template>
+  <header>
+    <div class="wrapper">
+      
+      <div class="logo">
+        <a href="/">
+          <div class="logo-content">
+            <h3>Jewelery</h3>
+            <div class="logo-img">
+              <Image 
+                src="/src/assets/icon/dragon-svgrepo-logo-22.svg" 
+                alt="dragon-svg" 
+                width="60"/>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <Search />
+      
+      <nav class="menu">
+        <Drawer 
+          v-model:visible="visibleMenu" 
+          header="MENU" 
+          position="right">
+          <ul>
+            <li><router-link to="/" class="menu-link">Home</router-link></li>
+            <li><router-link to="/category/electronics" class="menu-link">Category</router-link></li>
+            <li><router-link to="/catalog/11" class="menu-link">Product</router-link></li>
+          </ul>
+        </Drawer>
+          
+        <Button icon="pi pi-align-left" @click="visibleMenu = true"/>
+      </nav>
+        
+      <div class="cart">
+        <Drawer 
+          v-model:visible="visibleСart" 
+          header="СART" 
+          position="right">
+
+          <p>1. USB 3.0 and USB 2.0 Compatibility High Capacity</p>
+          <p>2. Supports TRIM command, Garbage Collection technology</p>
+          <p>3. The advanced SLC Cache Technology allows performance boost</p>
+        </Drawer>
+        
+        <Button icon="pi pi-shopping-cart" @click="visibleСart = true"/>
+      </div>
+      
+      <address class="contact">
+        <p class="email">agro@pr-agro.ru</p>
+        <p class="tel">+7 (495) 198-07-97</p>
+      </address>
+
+    </div>
+  </header>
+</template>
+
+<style scoped>
+.wrapper {
+  display: grid;
+  grid-template-columns: 210px auto 80px 60px 200px;
+  align-items: center;
+  gap: 15px;
+  
+  height: 130px;
+  padding: 0 20px;
+  max-width: var(--max-width);
+  margin: var(--margin-auto);
+}
+
+.menu,
+.cart, 
+.contact {
+  justify-self: center;
+}
+
+.email {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--orange-color);
+}
+
+.tel {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--green-color);
+}
+
+.logo-content {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.logo a {
+  font-size: 2rem;
+  font-weight: 400;
+  color: black;
+  text-underline-offset: 4px;
+  text-decoration-thickness: 2px;
+}
+
+.logo-img {
+  margin: 0 0 6px 0;
+}
+
+.pi-align-left {
+  display: block;
+  font-size: 26px;
+  color: var(--green-color);
+  transition: color .5s ease-out;
+}
+
+.pi-shopping-cart {
+  display: block;
+  font-size: 30px;
+  color: var(--green-color);
+  transition: color .5s ease-out;
+}
+
+.pi-align-left:hover,
+.pi-shopping-cart:hover {
+  color: var(--orange-color);
+}
+
+.menu-link {
+  font-size: 1.5rem;
+  color: black;
+  text-underline-offset: 4px;
+  text-decoration: revert;
+  transition: text-decoration-color 0.5s ease-out;
+  -webkit-text-decoration: revert;
+}
+
+.menu-link:hover {
+  text-decoration-color: #c9c9c9;
+  -webkit-text-decoration-color: #c9c9c9;
+}
+</style>
