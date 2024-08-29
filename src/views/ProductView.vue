@@ -19,7 +19,7 @@ type ProductType = {
 
 const route = useRoute()
 
-const product = ref<ProductType | null>(null)
+const product = ref<ProductType | null>()
 const loading = ref(false)
 const message = ref('')
 
