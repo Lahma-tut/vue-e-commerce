@@ -23,7 +23,7 @@ const product = ref<ProductType | null>(null)
 const loading = ref(false)
 const message = ref('')
 
-watchEffect( async () => {
+watchEffect(async () => {
   const id = route.params.id
   try {
     loading.value = true
