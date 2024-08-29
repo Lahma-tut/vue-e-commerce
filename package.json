@@ -13,7 +13,8 @@
   "dependencies": {
     "@primevue/themes": "^4.0.2",
     "@vueuse/core": "^10.11.1",
-    "@vueuse/integrations": "^11.0.1",
+    "@vueuse/integrations": "^11.0.3",
+    "ant-design-vue": "^4.2.3",
     "axios": "^1.7.3",
     "fuse.js": "^7.0.0",
     "pinia": "^2.1.7",
@@ -29,6 +30,7 @@
     "@vue/tsconfig": "^0.5.1",
     "npm-run-all2": "^6.2.0",
     "typescript": "~5.4.0",
+    "unplugin-vue-components": "^0.27.4",
     "vite": "^5.3.1",
     "vue-tsc": "^2.0.21"
   }

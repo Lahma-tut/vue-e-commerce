@@ -5,8 +5,8 @@ import { RouterLink } from 'vue-router'
 import Drawer from 'primevue/drawer'
 import Button from 'primevue/button'
 import Image from 'primevue/image'
-import Search from './Search.vue'
 import OldSearch from './OldSearch.vue'
+import SearchFuse from './SearchFuse.vue'
 
 const visibleMenu = ref(false)
 const visibleСart = ref(false)
@@ -15,7 +15,6 @@ const visibleСart = ref(false)
 <template>
   <header>
     <div class="wrapper">
-      
       <div class="logo">
         <a href="/">
           <div class="logo-content">
@@ -30,8 +29,10 @@ const visibleСart = ref(false)
         </a>
       </div>
 
-      <Search />
-      
+      <div class="search">
+        <SearchFuse />
+      </div>
+     
       <nav class="menu">
         <Drawer 
           v-model:visible="visibleMenu" 
@@ -73,11 +74,10 @@ const visibleСart = ref(false)
 <style scoped>
 .wrapper {
   display: grid;
-  grid-template-columns: 210px auto 80px 60px 200px;
+  grid-template-columns: 220px auto 70px 70px 180px;
   align-items: center;
-  gap: 15px;
-  
   height: 130px;
+  gap: 15px;
   padding: 0 20px;
   max-width: var(--max-width);
   margin: var(--margin-auto);

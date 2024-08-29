@@ -1,25 +1,63 @@
 <script setup lang='ts'>
-import { ref, computed } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useAxios } from '@vueuse/integrations/useAxios'
+import apiService from '@/services/apiService'
 
 import InputText from 'primevue/inputtext'
 import Image from 'primevue/image'
 
 const searchQuery = ref('')
 const isOpen = ref(false)
+const searchIndex = ref(-1)
+const selectedProduct = ref(null)
 
-const {
-  data,
-  isLoading,
-  isFinished,
-  error
-} = useAxios('https://fakestoreapi.com/products')
+const loading = ref(false)
+const products = ref([])
 
 const filteredProducts = computed(() => {
   const search = searchQuery.value.toLowerCase()
   return search.length > 1
-    ? data.value.filter((product: any) => product.title.toLowerCase().includes(search))
+    ? products.value.filter((product: any) => product.title.toLowerCase().includes(search))
     : null
+})
+
+const getProducts = async () => {
+  try {
+    loading.value = true
+    const response = await apiService.getProducts()
+    products.value = response.data
+  } catch (error) {
+    console.log(error)
+  } finally {
+    loading.value = false
+  }
+}
+
+const onKeydown = (event: any) => {
+  const data = filteredProducts.value ?? []
+  const { length } = data
+  const index = searchIndex.value
+
+  if (length) {
+    const step = ({
+      ArrowDown: 1,
+      ArrowUp: -1
+    })[event.key]
+
+    if(step) {
+      searchIndex.value = (Math.max(-1, index + step) + length) % length
+    } else if (event.key === 'Enter' && index !== -1) {
+      selectedProduct.value = data[index]
+    } else if (event.key === 'Escape') {
+      searchQuery.value
+    }
+  }
+}
+
+watch(filteredProducts, () => searchIndex.value = -1)
+
+onMounted(() => {
+  getProducts()
 })
 
 const setSelected = (item: string) => {
@@ -36,7 +74,7 @@ const handleInput = (event: Event) => {
 
 <template>
   <div class="search">
-    <InputText v-model="searchQuery" placeholder="search" fluid @input="handleInput"/>
+    <InputText v-model="searchQuery" placeholder="search" fluid @input="handleInput" @keydown="onKeydown"/>
 
     <Transition>
       <ul v-if="filteredProducts && isOpen" class="search-result">
@@ -44,13 +82,15 @@ const handleInput = (event: Event) => {
         <li v-if="!filteredProducts.length">
           <h3>Ничего не найдено</h3>
         </li>
-
-        <router-link :to="{ name: 'product', params: { id: id }}">
+        
           <li
-            v-for="(product, index, id) in filteredProducts" 
+            v-for="(product, id, index) in filteredProducts" 
             :key="id"
             @click="setSelected(product.title)"
+            :class="{ active: i === searchIndex }"
             >
+
+            <router-link :to="{ name: 'product', params: { id: product.id }}">
               <div class="product-image">
                 <Image :src="product.image" :alt="product.title" width="40" />
               </div>
@@ -58,9 +98,8 @@ const handleInput = (event: Event) => {
               <div>
                 <p>{{ product.price }}&nbsp;<span>&#x20bd;</span></p>
               </div>
-            </li>
-          </router-link>
-
+            </router-link>
+          </li>
         </ul>
     </Transition>
 

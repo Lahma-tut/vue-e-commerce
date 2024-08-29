@@ -27,6 +27,7 @@ const categories = computed(() => {
     <div class="categories">
       <Message v-if="error" severity="warn">Error: {{ error }}</Message>
       <Message v-else-if="isFetching" severity="success">Loading...</Message>
+      
       <ul v-else class="carousel">
         <li v-for="(category, index) in categories" :key="index">
             <router-link :to="{ name: 'category', params: { id: category }}">

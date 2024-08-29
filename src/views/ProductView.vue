@@ -1,47 +1,64 @@
 <script setup lang='ts'>
-import { ref, computed } from 'vue'
+import { ref, computed, watch, watchEffect } from 'vue'
 import { useFetch } from '@vueuse/core'
 import { useRoute } from 'vue-router'
 
 import Image from 'primevue/image'
 import Message from 'primevue/message'
 import Breadcrumb from 'primevue/breadcrumb'
+import apiService from '@/services/apiService'
+
+type ProductType = {
+  id: number
+  category: string
+  title: string
+  description: string
+  image: string
+  price: number
+}
 
 const route = useRoute()
 
-const { isFetching, error, data } = useFetch(`https://fakestoreapi.com/products/${route.params.id}`)
-const product = computed(() => {
+const product = ref<ProductType | null>(null)
+const loading = ref(false)
+const message = ref('')
+
+watchEffect( async () => {
+  const id = route.params.id
   try {
-    return JSON.parse(data.value as string)
-  }
-  catch (error) {
-    return null
+    loading.value = true
+    const response = await apiService.getProduct(id)
+    product.value = response.data
+  } catch (error) {
+    console.log(error)
+  } finally {
+    loading.value = false
   }
 })
 
-// breadcrumb
 const home = ref({
     icon: 'pi pi-home'
 })
-
 const items = ref([
     { label: 'Electronics' }, 
     { label: 'Electronics', },
 ])
 
+console.log('product:', product)
+
 </script>
 
 <template>
-  <Message v-if="error" severity="warn">Error: {{ error }}</Message>
-  <Message v-else-if="isFetching" severity="success">Loading...</Message>
+  <Message v-if="message" severity="warn">Error: {{ message }}</Message>
+  <Message v-else-if="loading" severity="success">Loading...</Message>
 
   <div v-else class="product">
     <div class="breadcrumbs">
       <Breadcrumb :home="home" :model="items" />
-      <h1>{{ product.title }}</h1>
+      <h1>{{ product?.title }}</h1>
     </div>
     <div class="layout">
-      
+     
       <div class="content">
         <div class="image">
           <Image alt="Image" preview>
@@ -49,28 +66,28 @@ const items = ref([
               <i class="pi pi-search"></i>
             </template>
             <template #image>
-              <img :src="product.image" alt="image" width="250" />
+              <img :src="product?.image" alt="image" width="250" />
             </template>
             <template #preview="slotProps">
-              <img :src="product.image" alt="preview" width="600" :style="slotProps.style" @click="slotProps.onClick" />
+              <img :src="product?.image" alt="preview" width="600" :style="slotProps.style" @click="slotProps.onClick" />
             </template>
           </Image>
         </div>
         
         <div class="description">
           <div>
-            <p>{{ product.description }}</p>
+            <p>{{ product?.description }}</p>
           </div>
           <div class="description-category">
             <p>
               Category: 
-              <router-link :to="{ name: 'category', params: { id: product.category }}">
-              {{ product.category }}
+              <router-link :to="{ name: 'category', params: { id: product?.category }}">
+              {{ product?.category }}
             </router-link>
             </p>
           </div>
           <div class="price">
-            <p>{{ product.price }}</p>
+            <p>{{ product?.price }}</p>
             <p>руб</p>
           </div>
         </div>
