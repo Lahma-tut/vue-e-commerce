@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<!-- <script setup lang='ts'>
 import { ref, watch } from 'vue'
 import apiService from '@/services/apiService'
 import AutoComplete from 'primevue/autocomplete'
@@ -79,4 +79,4 @@ watch( selectedProduct, () => {
 
 }
 
-</style>
+</style> -->
