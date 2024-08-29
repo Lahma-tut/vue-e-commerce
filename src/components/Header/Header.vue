@@ -5,7 +5,6 @@ import { RouterLink } from 'vue-router'
 import Drawer from 'primevue/drawer'
 import Button from 'primevue/button'
 import Image from 'primevue/image'
-import OldSearch from './OldSearch.vue'
 import SearchFuse from './SearchFuse.vue'
 
 const visibleMenu = ref(false)
