@@ -19,7 +19,7 @@ type ProductType = {
 
 const route = useRoute()
 
-const product = ref<ProductType | null>()
+const product = ref<any>({})
 const loading = ref(false)
 const message = ref('')
 
@@ -55,7 +55,7 @@ console.log('product:', product)
   <div v-else class="product">
     <div class="breadcrumbs">
       <Breadcrumb :home="home" :model="items" />
-      <h1>{{ product?.title }}</h1>
+      <h1>{{ product.title }}</h1>
     </div>
     <div class="layout">
      
@@ -66,28 +66,28 @@ console.log('product:', product)
               <i class="pi pi-search"></i>
             </template>
             <template #image>
-              <img :src="product?.image" alt="image" width="250" />
+              <img :src="product.image" alt="image" width="250" />
             </template>
             <template #preview="slotProps">
-              <img :src="product?.image" alt="preview" width="600" :style="slotProps.style" @click="slotProps.onClick" />
+              <img :src="product.image" alt="preview" width="600" :style="slotProps.style" @click="slotProps.onClick" />
             </template>
           </Image>
         </div>
         
         <div class="description">
           <div>
-            <p>{{ product?.description }}</p>
+            <p>{{ product.description }}</p>
           </div>
           <div class="description-category">
             <p>
               Category: 
-              <router-link :to="{ name: 'category', params: { id: product?.category }}">
-              {{ product?.category }}
+              <router-link :to="{ name: 'category', params: { id: product.category }}">
+              {{ product.category }}
             </router-link>
             </p>
           </div>
           <div class="price">
-            <p>{{ product?.price }}</p>
+            <p>{{ product.price }}</p>
             <p>руб</p>
           </div>
         </div>
