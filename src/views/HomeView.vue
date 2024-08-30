@@ -96,6 +96,9 @@ text-underline-offset: 0.25em;
 */
 
 @media screen and (width < 600px) {
- 
+  .carousel {
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>

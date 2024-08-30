@@ -20,7 +20,7 @@ const visibleСart = ref(false)
             <h3>Jewelery</h3>
             <div class="logo-img">
               <Image 
-                src="/src/assets/icon/dragon-svgrepo-logo-22.svg" 
+                src="http://localhost:5173/src/assets/icon/dragon-svgrepo-logo-22.svg" 
                 alt="dragon-svg" 
                 width="60"/>
             </div>
