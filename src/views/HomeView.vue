@@ -94,4 +94,8 @@ h2 {
 text-decoration-thickness: 1px;
 text-underline-offset: 0.25em; 
 */
+
+@media screen and (width < 600px) {
+ 
+}
 </style>

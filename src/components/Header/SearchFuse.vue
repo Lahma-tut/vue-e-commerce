@@ -17,6 +17,7 @@ type DataItem = {
 const input = ref('')
 const loading = ref(false)
 const data = ref<DataItem[]>([])
+const isOpen = ref(false)
 
 const getProducts = async () => {
   loading.value = true
@@ -44,6 +45,16 @@ const { results } = useFuse(input, data, {
   fuseOptions: { includeScore: true, keys: ['title'] }
 })
 
+const setSelected = (item: string) => {
+  isOpen.value = false
+  input.value = item
+}
+
+const handleInput = (event: Event) => {
+  isOpen.value = true
+  input.value = (event.target as HTMLInputElement).value
+}
+
 const clearInput = () => {
   input.value = ''
 }
@@ -55,7 +66,10 @@ const clearInput = () => {
     <div class="input-wrapper">
       <input 
         v-model="input"
-        type="text">
+        type="text"
+        placeholder="search"
+        @input="handleInput"
+        >
 
       <span 
         v-if="loading" 
@@ -74,12 +88,14 @@ const clearInput = () => {
 
     <Transition>
       <ul 
-        v-if="results.length" 
+        v-if="results.length && isOpen" 
         class="search-result-items">      
         
         <li 
           v-for="({ item }) in results" 
-          :key="item.id">
+          :key="item.id"
+          @click="setSelected(item.title)"
+          >
           <router-link :to="{ name: 'product', params: { id: item.id } }">
             <div class="search-result-item">
               <div class="image">
@@ -91,8 +107,8 @@ const clearInput = () => {
               <div class="title">
                 <h3>{{ item.title }}</h3>
                 </div>
-              <div>
-              <p>{{ item.price }}
+              <div class="price">
+                <p>{{ item.price }}
                   &nbsp;<span>&#x20bd;
                   </span>
                 </p>
@@ -135,7 +151,7 @@ input {
   gap: 20px;
 
   margin: 10px 0 0 0;
-  padding: 10px;
+  padding: 5px;
 
   position: absolute;
   overflow: auto;
@@ -147,15 +163,34 @@ input {
               rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
 }
 
+.search-result-items a {
+  text-decoration: none;
+}
+
 .search-result-item {
-  display: flex;
+  display: grid;
+  grid-template: 1fr / 60px 5fr 80px;
   align-items: center;
   gap: 10px;
+  padding: 4px 8px;
+
+  transition: background-color 0.5s ease;
+}
+
+.search-result-item:hover {
+  background-color: gainsboro;
+  border-radius: 0.15rem;
 }
 
 .title {
-  flex: auto;
+  text-wrap: pretty;
 }
+
+.price {
+  text-align: right;
+}
+
+
 
 .v-enter-active,
 .v-leave-active {

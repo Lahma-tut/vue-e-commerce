@@ -74,7 +74,12 @@ const handleInput = (event: Event) => {
 
 <template>
   <div class="search">
-    <InputText v-model="searchQuery" placeholder="search" fluid @input="handleInput" @keydown="onKeydown"/>
+    <InputText 
+      v-model="searchQuery" 
+      placeholder="search" 
+      fluid 
+      @input="handleInput" @keydown="onKeydown"
+      />
 
     <Transition>
       <ul v-if="filteredProducts && isOpen" class="search-result">

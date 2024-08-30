@@ -52,7 +52,6 @@ const visibleСart = ref(false)
           v-model:visible="visibleСart" 
           header="СART" 
           position="right">
-
           <p>1. USB 3.0 and USB 2.0 Compatibility High Capacity</p>
           <p>2. Supports TRIM command, Garbage Collection technology</p>
           <p>3. The advanced SLC Cache Technology allows performance boost</p>
@@ -149,5 +148,56 @@ const visibleСart = ref(false)
 .menu-link:hover {
   text-decoration-color: #c9c9c9;
   -webkit-text-decoration-color: #c9c9c9;
+}
+
+@media screen and (width < 880px) {
+  .wrapper {
+    display: grid;
+    grid-template: 1fr 1fr/ 1fr 60px 60px;
+    gap: 0;
+    align-items: center;
+    margin: 25px 0 25px 0;
+  }
+
+  .logo {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2; 
+  }
+
+  .menu {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    justify-self: end;
+  }
+  
+  .cart {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    justify-self: end;
+  }
+
+  .contact {
+    display: none;
+  }
+  
+  .search {
+    grid-column: 1 / 4;
+    grid-row: 2 / 2;
+  }
+}
+
+@media screen and (width < 600px) {
+  .logo a {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: black;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 2px;
+  }
+
+  .logo-img {
+    width: 50px;
+    margin: 0 0 6px 0;
+  }
 }
 </style>
