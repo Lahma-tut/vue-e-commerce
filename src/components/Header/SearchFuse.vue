@@ -1,8 +1,12 @@
 <script setup lang='ts'>
 import { ref, Transition, watch } from 'vue'
 import { useFuse } from '@vueuse/integrations/useFuse'
+import { onClickOutside, onKeyDown, onKeyStroke } from '@vueuse/core'
 import apiService from '@/services/apiService'
 import Image from 'primevue/image'
+import { useFocus } from '@vueuse/core'
+import AutoComplete from 'primevue/autocomplete'
+import router from '@/router'
 
 type DataItem = {
   id: number
@@ -18,6 +22,8 @@ const input = ref('')
 const loading = ref(false)
 const data = ref<DataItem[]>([])
 const isOpen = ref(false)
+const target = ref(null)
+const selectedIndex = ref(-1)
 
 const getProducts = async () => {
   loading.value = true
@@ -59,6 +65,27 @@ const clearInput = () => {
   input.value = ''
 }
 
+
+onClickOutside(target, clearInput)
+
+onKeyStroke('ArrowDown', (e: any) => {
+  e.preventDefault()
+  selectedIndex.value += 1
+}, { target: document })
+
+onKeyStroke('ArrowUp', (e: any) => {
+  e.preventDefault()
+  selectedIndex.value -= 1
+}, { target: document })
+
+function offKeyStroke() {
+  selectedIndex.value = -1
+}
+
+const submit = (id: any) => {
+  router.push({ name: 'product', params: { id: id } })
+}
+
 </script>
 
 <template>
@@ -70,7 +97,6 @@ const clearInput = () => {
         placeholder="search"
         @input="handleInput"
         >
-
       <span 
         v-if="loading" 
         class="spinner-dotted">
@@ -89,17 +115,18 @@ const clearInput = () => {
     <Transition>
       <ul 
         v-if="results.length && isOpen" 
-        class="search-result-items">      
-        
-        <li 
-          v-for="({ item }) in results" 
-          :key="item.id"
-          @click="setSelected(item.title)"
-          >
-          <router-link :to="{ name: 'product', params: { id: item.id } }">
+        class="search-result-items"
+        ref="target"
+        >      
+        <template v-for="({ item }, index) in results" :key="index">
+          <li 
+            :class="selectedIndex === index ? 'aktive' : '' "
+            @click="setSelected(item.title)"
+            @click.prevent="submit(item.id)"
+            >
             <div class="search-result-item">
               <div class="image">
-                <Image 
+                <Image
                   :src="item.image"
                   :alt="item.title" 
                   width="40"/>
@@ -114,8 +141,9 @@ const clearInput = () => {
                 </p>
             </div>
             </div>
-          </router-link>
         </li>
+        </template>
+       
       </ul>
     </Transition>
   </div>
@@ -175,9 +203,15 @@ input {
   padding: 4px 8px;
 
   transition: background-color 0.5s ease;
+  cursor: pointer;
 }
 
 .search-result-item:hover {
+  background-color: gainsboro;
+  border-radius: 0.15rem;
+}
+
+.aktive {
   background-color: gainsboro;
   border-radius: 0.15rem;
 }

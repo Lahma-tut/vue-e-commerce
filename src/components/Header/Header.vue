@@ -6,6 +6,7 @@ import Drawer from 'primevue/drawer'
 import Button from 'primevue/button'
 import Image from 'primevue/image'
 import SearchFuse from './SearchFuse.vue'
+import OldSearch from '../Lesson/OldSearch.vue'
 
 const visibleMenu = ref(false)
 const visibleСart = ref(false)

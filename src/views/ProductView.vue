@@ -41,7 +41,6 @@ const home = ref({
 })
 const items = ref([
     { label: 'Electronics' }, 
-    { label: 'Electronics', },
 ])
 
 console.log('product:', product)
@@ -125,7 +124,7 @@ console.log('product:', product)
 }
 
 .image {
-  max-width: 300px;
+  max-width: 600px;
 }
 
 .price {
@@ -150,5 +149,19 @@ console.log('product:', product)
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+
+@media screen and (width < 880px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px
+  }
+  .content {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
 }
 </style>

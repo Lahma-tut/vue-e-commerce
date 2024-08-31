@@ -1,4 +1,5 @@
 <script setup lang='ts'>
+import router from '@/router'
 import Image from 'primevue/image'
 
 defineProps({
@@ -9,12 +10,14 @@ defineProps({
   description: String,
   price: Number,
 })
+
+function submit(id: number | undefined){
+  router.push({ name: 'product', params: { id: id }})
+}
 </script>
 
 <template>
-  <router-link :to="{ name: 'product', params: { id: id }}">
-    <article>
-      
+    <article @click="submit(id)">
       <div class="image">
         <Image :src="image" :alt="title" width="80"/>
       </div>
@@ -28,9 +31,7 @@ defineProps({
         <p>{{ price }}</p>
         <p>руб</p>
       </div>
-    
     </article>
-  </router-link>
 </template>
 
 <style scoped>
@@ -41,6 +42,7 @@ article {
   gap: 20px;
   padding: 10px;
   transition: background-color 0.5s ease-out;
+  cursor: pointer;
 }
 
 article:hover {
@@ -80,5 +82,16 @@ h3 {
 
 a {
   text-decoration: none;
+}
+
+@media screen and (width < 880px) {
+  article {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .price {
+    justify-self: left;
+  }
 }
 </style>

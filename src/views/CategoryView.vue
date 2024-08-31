@@ -76,4 +76,12 @@ const productsCategory = computed(() => {
   gap: 10px;
   margin: 0 0 4px 0;
 }
+
+@media screen and (width < 880px) {
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px
+  }
+}
 </style>

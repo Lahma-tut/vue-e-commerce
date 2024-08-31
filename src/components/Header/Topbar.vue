@@ -45,7 +45,7 @@
 }
 
 @media screen and (width < 600px) {
-  .box, .thumbs, .clock {
+  .topbar {
     display: none;
   }
 }
